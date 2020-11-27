@@ -13,12 +13,13 @@ import javax.xml.bind.JAXBException;
 
 public class Engine {
     protected static final Logger log = LogManager.getLogger(Engine.class);
+    private static boolean DevMode = false;
 
     public static void main(String[] args) throws JAXBException {
         //获取sqlxml文件
         log.info("loading dbsqls.xml ......");
         XMLJaxbHandler h = XMLJaxbHandler.getHandler();
-        String dbssql = isWindows()? "src/main/resources/dbsqls.xml" : "dbsqls.xml";
+        String dbssql = DevMode? "src/main/resources/dbsqls.xml" : "dbsqls.xml";
         log.info("loading dbsqls.xml path: " + dbssql);
         Dbsqls sqls = (Dbsqls)h.getXMLBeans(dbssql, Dbsqls.class);
 
