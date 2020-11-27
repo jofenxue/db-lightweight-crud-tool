@@ -6,10 +6,12 @@
         <dburl>database.connection.url</dburl>
     </dbconfig>
     <sql order="1">
+        <![CDATA[
         SELECT DISTINCT FNC_PRD_INFO.*,FNC_CUS_TRAN_LOG_H.BANK_ACCT,FNC_CUS_TRAN_LOG_H.CUS_NAME,FNC_CUS_TRAN_LOG_H.CUS_NUM FROM FNC_CUS_TRAN_LOG_H
         left JOIN FNC_PRD_INFO ON FNC_CUS_TRAN_LOG_H.PRD_NO=FNC_PRD_INFO.PRD_NO
         WHERE BUSI_CODE='203' AND TRAN_STATUS = '4' and EXISTS (
         SELECT 1 FROM huanka WHERE oldacct=FNC_CUS_TRAN_LOG_H.BANK_ACCT AND oldacct IS NOT null) AND FNC_PRD_INFO.MATU_DATE>='20181015'
+        ]]
     </sql>
     <sql order="2">
         CREATE TABLE "VATAX_ADDED_INFO"
