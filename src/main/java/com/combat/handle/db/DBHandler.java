@@ -1,21 +1,77 @@
-package com.combat.core;
+package com.combat.handle.db;
+import com.combat.beans.Sql;
+import com.combat.handle.config.ConfigHandler;
+import com.combat.handle.config.PropertyConfigHandler;
+import com.combat.handle.sqlxml.XMLJaxbHandler;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ArrayHandler;
-import org.apache.commons.dbutils.handlers.ArrayListHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ColumnListHandler;
-import org.apache.commons.dbutils.handlers.MapHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
+public class DBHandler {
+    protected static final Logger log = LogManager.getLogger(DBHandler.class);
+    private static DBHandler _instance = null;
+    private String url = null;
+    private String usernm = null;
+    private String passwd = null;
+    private Properties prop = null;
 
-public class Engine {
+    private DBHandler(String url, String usernm, String passwd) {
+        this.url = url;
+        this.usernm = usernm;
+        this.passwd = passwd;
+    }
+
+    private DBHandler() {
+    }
+
+    public static DBHandler getHandler(String url, String usernm, String passwd) {
+        if(_instance == null) {
+            _instance = new DBHandler(url, usernm, passwd);
+        }
+        return _instance;
+    }
+
+    private void loadInnerDriver() {
+        String jdbcDriver = "oracle.jdbc.driver.OracleDriver";
+        DbUtils.loadDriver(jdbcDriver);
+    }
+
+    /**
+     * 执行操作
+     * @param sqls
+     */
+    public void executeUpdate(List<Sql> sqls) {
+        Connection conn = null;
+        QueryRunner qRunner = new QueryRunner();
+
+        try {
+            conn = DriverManager.getConnection(this.url, this.usernm, this.passwd);
+            conn.setAutoCommit(false);// Manually commit transactions
+
+            for(Sql sql : sqls) {
+                log.info("execute sql:" + sql);
+                qRunner.update(conn, sql.getContent());
+            }
+
+            DbUtils.commitAndCloseQuietly(conn);
+            log.info("***commit success***");
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("***rollback begin***");
+            DbUtils.rollbackAndCloseQuietly(conn);
+            log.info("***rollback end***");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws ClassNotFoundException {
 
@@ -103,4 +159,5 @@ public class Engine {
         }
 
     }
+
 }
