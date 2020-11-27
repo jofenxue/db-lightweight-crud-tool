@@ -46,19 +46,23 @@
     </dependencies>
     <build>
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <archive>
+                    <!--<archive>
                         <manifest>
                             <addClasspath>false</addClasspath>
                             <mainClass>com.combat.core.Engine</mainClass>
                         </manifest>
-                    </archive>
+                    </archive>-->
+                    <excludes>
+                        <exclude>/dbsqls.xml</exclude>
+                        <exclude>/log4j.xml</exclude>
+                    </excludes>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <!--<plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
                 <artifactId>copy-rename-maven-plugin</artifactId>

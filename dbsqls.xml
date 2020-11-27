@@ -1,0 +1,45 @@
+<!--
+    =============================================================
+    此文件仅用于开发调试，正式打包会取src/main/resources/dbsqls.xml文件
+    =============================================================
+ -->
+<dbsqls>
+    <dbconfig>
+        <configpath>F:\apache-tomcat-7.0.40-jf\wtpwebapps\platform_framework\WEB-INF\classes\dev\platform.properties</configpath>
+        <username>database.connection.username</username>
+        <password>database.connection.password</password>
+        <dburl>database.connection.url</dburl>
+    </dbconfig>
+    <sql order="1">
+        <![CDATA[
+        SELECT DISTINCT FNC_PRD_INFO.*,FNC_CUS_TRAN_LOG_H.BANK_ACCT,FNC_CUS_TRAN_LOG_H.CUS_NAME,FNC_CUS_TRAN_LOG_H.CUS_NUM FROM FNC_CUS_TRAN_LOG_H
+        left JOIN FNC_PRD_INFO ON FNC_CUS_TRAN_LOG_H.PRD_NO=FNC_PRD_INFO.PRD_NO
+        WHERE BUSI_CODE='203' AND TRAN_STATUS = '4' and EXISTS (
+        SELECT 1 FROM huanka WHERE oldacct=FNC_CUS_TRAN_LOG_H.BANK_ACCT AND oldacct IS NOT null) AND FNC_PRD_INFO.MATU_DATE>='20181015'
+        and FNC_PRD_INFO.MATU_DATE<='20201203'
+        ]]>
+    </sql>
+    <sql order="2">
+        CREATE TABLE "VATAX_ADDED_INFO"
+        (	"SEQNO" VARCHAR2(36 BYTE),
+        "ASSETTYPE" VARCHAR2(50 BYTE),
+        "PROFITFLAG" CHAR(1 BYTE),
+        "INCOMETYPE" CHAR(1 BYTE),
+        "VATAXFLAG" CHAR(1 BYTE),
+        "VATAXYIELD" NUMBER(12,6),
+        "VDATE" DATE,
+        "WFLNO" VARCHAR2(36 BYTE),
+        "EFFECTDATE" DATE,
+        "REVDATE" DATE,
+        "EFFECTFLAG" CHAR(1 BYTE),
+        "CREATEUSER" VARCHAR2(36 BYTE),
+        "CREATEDATE" DATE,
+        "UPDATEUSER" VARCHAR2(36 BYTE),
+        "UPDATEDATE" DATE,
+        "ORISEQNO" VARCHAR2(36 BYTE)
+        )
+    </sql>
+    <sql order="3">
+    3
+    </sql>
+</dbsqls>

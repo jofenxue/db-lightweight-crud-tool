@@ -25,9 +25,9 @@
         </filter>
     </appender>
     <!-- Application Loggers -->
-    <logger name="com.zjsys">
-        <level value="debug" />
-    </logger>
+    <!--<logger name="com.zjsys">
+        <level value="info" />
+    </logger>-->
 
 
 

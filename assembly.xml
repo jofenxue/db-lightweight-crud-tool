@@ -14,14 +14,14 @@
     <!--这里打包某些外部依赖的jar包-->
     <fileSets>
         <!--这里将target输出到根目录-->
-        <fileSet>
+        <!--<fileSet>
             <directory>target</directory>
             <outputDirectory>./</outputDirectory>
             <includes>
                 <include>patch*.jar</include>
             </includes>
             <fileMode>0755</fileMode>
-        </fileSet>
+        </fileSet>-->
 
         <!--这里打包一些启动、关闭的shell脚本-->
         <fileSet>
