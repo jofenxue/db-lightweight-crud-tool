@@ -38,7 +38,7 @@ public class XMLJaxbHandler {
         return sqls;
     }
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main1(String[] args) throws JAXBException {
         XMLJaxbHandler h = XMLJaxbHandler.getHandler();
         Dbsqls sqls = (Dbsqls)h.getXMLBeans("dbsqls.xml", Dbsqls.class);
         List<Sql> sql = sqls.getSql();

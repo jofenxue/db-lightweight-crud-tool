@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.combat</groupId>
-    <artifactId>db-lightweight-crud-tool</artifactId>
+    <artifactId>system-dbpath</artifactId>
     <version>1.0</version>
     <repositories>
         <!--<repository>
@@ -46,7 +46,20 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>false</addClasspath>
+                            <mainClass>com.combat.core.Engine</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>-->
+            <!--<plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
                 <artifactId>copy-rename-maven-plugin</artifactId>
                 <version>1.0.1</version>
@@ -62,17 +75,12 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.combat.core.Engine</mainClass>
-                        </manifest>
-                    </archive>
                     <descriptors>
                         <descriptor>assembly.xml</descriptor>
                     </descriptors>

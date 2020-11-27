@@ -73,7 +73,7 @@ public class DBHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main1(String[] args) throws ClassNotFoundException {
 
         Connection conn = null;
         String jdbcURL_oci = "jdbc:oracle:oci:@dqcsp";
